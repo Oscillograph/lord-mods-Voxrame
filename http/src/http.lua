@@ -1,7 +1,7 @@
 local Client   = require("http.Client")
 local Resource = require("http.Resource")
 
-http = {}
+http = {} -- luacheck: ignore unused global variable http
 
 local function register_api(http_api, debug_mode)
 	_G.http = {
