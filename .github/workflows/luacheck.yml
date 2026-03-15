@@ -1,0 +1,33 @@
+# Linting via luacheck
+
+name: Lint (luacheck)
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo recursively
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+          fetch-depth: 30
+
+      - name: Install LuaCheck
+        run: |
+          sudo apt-get install luarocks
+          luarocks install --local luacheck
+
+      - name: Run linter
+        run: |
+          $HOME/.luarocks/bin/luacheck .
+
+      - name: Check Cyclomatic Complexity
+        run: |
+          $HOME/.luarocks/bin/luacheck . --max-cyclomatic-complexity 10
