@@ -3,7 +3,7 @@ local old_require = require
 require           = function(name) return dofile(mod_path .. '/src/' .. name:gsub('%.', '/') .. '.lua') end
 
 Voxrame = Voxrame or {}
---- @module 'Voxrame.map'
+--- @module 'Voxrame.helpers'
 Voxrame.helpers = 'loaded'
 
 require('types')
