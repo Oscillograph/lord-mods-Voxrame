@@ -99,13 +99,18 @@ end
 -- Invoke on_blast() callback in the node
 --- @param pos Position   position of the node
 local explode_node = function(pos)
-	local node = core.get_node(pos)
-	local node_def = core.registered_nodes[node.name]
-	if node_def then
-		if node_def.on_blast then
-			node_def.on_blast(pos)
-		else
-			core.punch_node(pos)
+	local in_nazgul_area = nazgul_area.position_in_nazgul_area(pos)
+
+	if not in_nazgul_area then
+		local node = core.get_node(pos)
+		local node_def = core.registered_nodes[node.name]
+
+		if node_def then
+			if node_def.on_blast then
+				node_def.on_blast(pos)
+			else
+				core.punch_node(pos)
+			end
 		end
 	end
 end
